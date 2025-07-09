@@ -1,0 +1,8 @@
+---
+- name: Get system load average
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Display load average
+      debug:
+        msg: "Load average on {{ inventory_hostname }}: 1-min: {{ ansible_load_avg.1m }}, 5-min: {{ ansible_load_avg.5m }}, 15-min: {{ ansible_load_avg.15m }}"
