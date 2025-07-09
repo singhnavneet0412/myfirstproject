@@ -1,8 +1,13 @@
 ---
 - name: Get system load average
   hosts: all
-  gather_facts: yes
+  gather_facts: yes # Keep this here
   tasks:
+    - name: Debug all gathered facts
+      debug:
+        var: ansible_facts # This will dump the entire ansible_facts dictionary
+
     - name: Display load average
       debug:
-        msg: "Load average on {{ inventory_hostname }}: 1-min: {{ load_avg['1m'] }}, 5-min: {{ load_avg['5m'] }}, 15-min: {{ load_avg['15m'] }}"
+        msg: "Load average on {{ inventory_hostname }}: 1-min: {{ ansible_load_avg['1m'] }}, 5-min: {{ ansible_load_avg['5m'] }}, 15-min: {{ ansible_load_avg['15m'] }}"
+      when: ansible_load_avg is defined # Only attempt if it's defined
